@@ -53,6 +53,9 @@ public class CounterjavaApplication {
 		}
 
 		Map<String, Object> root = new HashMap<>();
+		root.put("ans", "");
+		root.put("sh", "false");
+		root.put("reglog", "");
 
 		Writer wr = new StringWriter();
 		try {
@@ -71,7 +74,7 @@ public class CounterjavaApplication {
 		String ans = "";
 
 		try {
-			t = fmconfig.getTemplate("registered.html");
+			t = fmconfig.getTemplate("index.html");
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -85,6 +88,54 @@ public class CounterjavaApplication {
 
 		Map<String, Object> root = new HashMap<>();
 		root.put("ans", ans);
+		root.put("sh", "true");
+		root.put("reglog", "Registration info");
+
+		Writer wr = new StringWriter();
+		try {
+			t.process(root, wr);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		return wr.toString();
+
+	}
+
+	@PostMapping("/logusr")
+	public String logsr(@RequestParam(name = "login") String login, @RequestParam(name = "pass") String pass) {
+		Template t = null;
+		String ans = "";
+
+		try {
+			if (users.get(login).equals(pass)) {
+				ans = login;
+			} else {
+				ans = "Incorrect username or password!";
+			}
+		} catch (Exception e) {
+			ans = "Incorrect username or password!";
+		}
+
+		try {
+			if (ans.equals(login)) {
+				t = fmconfig.getTemplate("cnt.html");
+			} else {
+				t = fmconfig.getTemplate("index.html");
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		Map<String, Object> root = new HashMap<>();
+		
+		if (ans.equals(login)) {
+			root.put("usr", ans);
+		} else {
+			root.put("ans", ans);
+			root.put("sh", "true");
+			root.put("reglog", "Log in info");
+		}
 
 		Writer wr = new StringWriter();
 		try {

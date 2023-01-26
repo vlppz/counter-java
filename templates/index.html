@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Counter</title>
 
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.5.0/semantic.min.css"
@@ -21,9 +21,9 @@
 
 <body>
     <nav class="ui stackable menu">
-        <div class="item gr">
+        <button onclick="window.location.href='/'" style="border: none;" class="item gr">
             Counter
-        </div>
+        </button>
         <dev class="item">
             <strong>Log in or register</strong>
         </dev>
@@ -42,7 +42,7 @@
                         <label>Password</label>
                         <input type="password" name="pass" placeholder="Password">
                     </div>
-                    
+
                     <button type="submit" class="ui button orange inverted">Log in</button>
                 </form>
             </div>
@@ -58,12 +58,36 @@
                         <label>Password</label>
                         <input type="password" name="pass" placeholder="Password">
                     </div>
-                    
+
                     <button type="submit" class="ui button orange inverted">Register</button>
                 </form>
             </div>
         </div>
     </div>
+
+    <div class="ui basic modal">
+        <div class="ui icon header">
+            <i class="info circle icon"></i>
+            ${reglog}
+        </div>
+        <div class="content mdl1">
+            <p>${ans}</p>
+        </div>
+        <div class="actions mdl1">
+            <div class="ui green ok inverted button">
+                <i class="checkmark icon"></i>
+                Ok
+            </div>
+        </div>
+    </div>
+
+    <script>
+        var sh = ${sh};
+
+        if (sh) {
+            $('.ui.basic.modal').modal('show');
+        }
+    </script>
 </body>
 
 </html>
