@@ -30,8 +30,41 @@
     </nav>
 
     <div class="ui container cnt1">
-        
+        <h1>Your amount: ${cnt}</h1>
+        <div class="sh2">
+            <form action="/cnt" method="post" class="ui form">
+                <h3>Add</h3>
+                <input type="hidden" name="pass" value="${pass}">
+                <input type="hidden" name="usr" value="${usr}">
+                <div class="field">
+                    <label>Amount</label>
+                    <input name="amount" placeholder="Amount">
+                </div>
+                <div class="inl">
+                    <div class="field sp1">
+                        <div class="ui radio checkbox">
+                            <input type="radio" name="deist" value="+" checked>
+                            <label>+</label>
+                        </div>
+                    </div>
+                    <div class="field sp1">
+                        <div class="ui radio checkbox">
+                            <input type="radio" name="deist" value="-">
+                            <label>-</label>
+                        </div>
+                    </div>
+                </div>
+
+                <button type="submit" class="ui button orange inverted">Add</button>
+            </form>
+        </div>
     </div>
+
+    <script>
+        $('.ui.radio.checkbox')
+            .checkbox()
+            ;
+    </script>
 </body>
 
 </html>

@@ -37,3 +37,22 @@
     flex-direction: column;
     align-items: center;
 }
+
+.sh2 {
+    -webkit-box-shadow: 0px 0px 29px -11px rgba(34, 60, 80, 0.35);
+    -moz-box-shadow: 0px 0px 29px -11px rgba(34, 60, 80, 0.35);
+    box-shadow: 0px 0px 29px -11px rgba(34, 60, 80, 0.35);
+
+    padding: 15px;
+    border-radius: 15px;
+}
+
+.inl {
+    display: flex;
+
+    flex-direction: row;
+}
+
+.sp1 {
+    margin-right: 20px!important;
+}

@@ -30,8 +30,10 @@ import freemarker.template.TemplateNotFoundException;
 public class CounterjavaApplication {
 
 	public Map<String, String> users = new HashMap<>();
+	public Map<String, Integer> userscnt = new HashMap<>();
 
 	public static Configuration fmconfig = new Configuration(Configuration.VERSION_2_3_32);
+
 	public static void main(String[] args) {
 		SpringApplication.run(CounterjavaApplication.class, args);
 		ClassPathResource resource = new ClassPathResource("/templates");
@@ -81,7 +83,8 @@ public class CounterjavaApplication {
 
 		if (users.get(login) == null) {
 			users.put(login, pass);
-			ans = "Registered as: "+login;
+			userscnt.put(pass, 0);
+			ans = "Registered as: " + login;
 		} else {
 			ans = "This user is already registered!";
 		}
@@ -128,14 +131,49 @@ public class CounterjavaApplication {
 		}
 
 		Map<String, Object> root = new HashMap<>();
-		
+
 		if (ans.equals(login)) {
 			root.put("usr", ans);
+			root.put("pass", users.get(login));
+			root.put("cnt", userscnt.get(pass).toString());
 		} else {
 			root.put("ans", ans);
 			root.put("sh", "true");
 			root.put("reglog", "Log in info");
 		}
+
+		Writer wr = new StringWriter();
+		try {
+			t.process(root, wr);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		return wr.toString();
+
+	}
+
+	@PostMapping("/cnt")
+	public String cnt(@RequestParam(name = "pass") String pass, @RequestParam(name = "usr") String usr, @RequestParam(name = "amount") String amount, @RequestParam(name = "deist") String deist) {
+		Template t = null;
+
+		try {
+			t = fmconfig.getTemplate("cnt.html");
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		Map<String, Object> root = new HashMap<>();
+		
+		if (deist.equals("+")) {
+			userscnt.replace(pass, userscnt.get(pass)+Integer.parseInt(amount));
+		} else {
+			userscnt.replace(pass, userscnt.get(pass)-Integer.parseInt(amount));
+		}
+		
+		root.put("cnt", userscnt.get(pass).toString());
+		root.put("pass", pass);
+		root.put("usr", usr);
 
 		Writer wr = new StringWriter();
 		try {
