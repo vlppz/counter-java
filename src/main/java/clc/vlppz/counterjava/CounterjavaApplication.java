@@ -186,7 +186,7 @@ public class CounterjavaApplication {
 
 	}
 
-	@GetMapping("/css")
+	@GetMapping("/style.css")
 	public String css() {
 		ClassPathResource cssf = new ClassPathResource("/static/style.css");
 
